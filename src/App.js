@@ -1,24 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Container } from 'react-bootstrap';
-import { HomeCard, NoResource, VisionNavBar } from './components';
+import { HomeCard, NoResource, VisionNavBar, ErrorToast } from './components';
 import style from 'styled-components';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import houses from './houses';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  const [state, setState] = useState({ houses, hasMore: true });
+
+  const fetchData = () => {
+    // a fake async api call like which sends
+    // 20 more records in 1.5 secs
+    setTimeout(() => {
+      setState({
+        houses: state.houses.concat(houses.slice(0, 5)),
+        hasMore: !state.hasMore,
+      });
+    }, 1500);
+  };
   return (
     <Wrapper>
       <div className="App">
         <VisionNavBar />
         <br />
         <Container>
-          <Row>
-            {!houses.length ? (
-              <NoResource action={() => {}} />
-            ) : (
-              houses.map((home) => <HomeCard key={home.id} home={home} />)
-            )}
-          </Row>
+          {!state.houses.length ? (
+            <NoResource action={() => {}} />
+          ) : (
+            <InfiniteScroll
+              style={{ overflow: 'hidden' }}
+              dataLength={state.houses.length}
+              next={fetchData}
+              hasMore={state.hasMore}
+              endMessage={<ErrorToast fetchData={fetchData} />}
+              loader={<h4>Loading...</h4>}
+            >
+              <Row>
+                {state.houses.map((home) => (
+                  <HomeCard key={home.id + Math.random()} home={home} />
+                ))}
+              </Row>
+            </InfiniteScroll>
+          )}
         </Container>
       </div>
     </Wrapper>
