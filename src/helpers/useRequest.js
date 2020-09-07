@@ -13,7 +13,6 @@ export default () => {
       const link = `${homesUrl}/?page=${page}&per_page=6`;
       const { data: response } = await axios.get(link);
       setState({
-        ...state,
         response: state.response.concat(response.houses),
         loading: false,
       });

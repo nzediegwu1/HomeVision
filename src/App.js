@@ -16,7 +16,7 @@ function App() {
     const { page } = state;
     fetchResource({ page }).then((res) => {
       if (!res) return setState({ ...state, hasMore: false });
-      setState({ ...state, page: page + 1, hasMore: true });
+      setState({ page: page + 1, hasMore: true });
     });
   };
 

@@ -26,7 +26,7 @@ const Wrapper = styled.div`
 `;
 
 const Card = styled.div`
-  padding: 25px; */
+  padding: 25px;
   background: #fff;
   padding: 25px;
   border-radius: 3px;

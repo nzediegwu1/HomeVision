@@ -10,7 +10,7 @@ const ErrorToast = ({ fetchData, loading }) => {
           <strong className="mr-auto">Error</strong>
         </Toast.Header>
         <Toast.Body>
-          There was an error loading the page &nbsp;
+          There was an error loading new data &nbsp;
           <Button
             size="sm"
             onClick={fetchData}
@@ -40,6 +40,11 @@ const Wrapper = styled.div`
   .refresh-button {
     float: right;
     margin-top: -0.3em;
+  }
+  @media only screen and (max-width: 387px) {
+    .refresh-button {
+      margin-top: 0.3em;
+    }
   }
 `;
 
