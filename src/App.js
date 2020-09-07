@@ -3,12 +3,10 @@ import { Row, Container } from 'react-bootstrap';
 import { HomeCard, NoResource, VisionNavBar, ErrorToast } from './components';
 import style from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import houses from './houses';
 import { useRequest } from './helpers';
 
 function App() {
   const [state, setState] = useState({
-    houses,
     hasMore: true,
     page: 1,
   });

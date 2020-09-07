@@ -1,8 +1,13 @@
 # HomeVision
 A simple web portal to help you find beautiful house designs for your home
 
-## Available Scripts
+## Setup
+1. Clone the project using: `git clone https://github.com/nzediegwu1/HomeVision.git`
+2. Create an .env file in project root using the variables specified in .env.example
+3. Install dependencies using `yarn`
+4. Run scripts below
 
+## Available Scripts
 In the project directory, you can run:
 
 ### `yarn dev`
