@@ -1,42 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Container } from 'react-bootstrap';
 import { HomeCard, NoResource, VisionNavBar, ErrorToast } from './components';
 import style from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import houses from './houses';
+import { useRequest } from './helpers';
 
 function App() {
-  const [state, setState] = useState({ houses, hasMore: true });
+  const [state, setState] = useState({
+    houses,
+    hasMore: true,
+    page: 1,
+  });
+  const [resource, fetchResource] = useRequest();
 
   const fetchData = () => {
-    // a fake async api call like which sends
-    // 20 more records in 1.5 secs
-    setTimeout(() => {
-      setState({
-        houses: state.houses.concat(houses.slice(0, 5)),
-        hasMore: !state.hasMore,
-      });
-    }, 1500);
+    const { page } = state;
+    fetchResource({ page }).then((res) => {
+      if (!res) return setState({ ...state, hasMore: false });
+      setState({ ...state, page: page + 1, hasMore: true });
+    });
   };
+
+  useEffect(fetchData, []);
+
+  const { loading, response } = resource;
+
   return (
     <Wrapper>
       <div className="App">
         <VisionNavBar />
         <br />
         <Container>
-          {!state.houses.length ? (
-            <NoResource action={() => {}} />
+          {!response.length ? (
+            <NoResource action={fetchData} loading={loading} />
           ) : (
             <InfiniteScroll
               style={{ overflow: 'hidden' }}
-              dataLength={state.houses.length}
+              dataLength={response.length}
+              scrollThreshold={0.9}
               next={fetchData}
               hasMore={state.hasMore}
-              endMessage={<ErrorToast fetchData={fetchData} />}
+              endMessage={
+                <ErrorToast loading={loading} fetchData={fetchData} />
+              }
               loader={<h4>Loading...</h4>}
             >
               <Row>
-                {state.houses.map((home) => (
+                {response.map((home) => (
                   <HomeCard key={home.id + Math.random()} home={home} />
                 ))}
               </Row>

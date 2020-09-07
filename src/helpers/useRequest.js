@@ -1,22 +1,26 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { errorHandler } from '.';
 
-export default ({ path }) => {
+const homesUrl = process.env.REACT_APP_HOMES_URL;
+export default () => {
   const [state, setState] = useState({
     loading: false,
-    response: {},
-    error: '',
+    response: [],
   });
-  const fetchData = async () => {
+  const fetchData = async ({ page }) => {
     try {
       setState({ ...state, loading: true });
-      const { data: response } = await axios.get(path);
-      setState({ ...state, response });
+      const link = `${homesUrl}/?page=${page}&per_page=6`;
+      const { data: response } = await axios.get(link);
+      setState({
+        ...state,
+        response: state.response.concat(response.houses),
+        loading: false,
+      });
       return response;
     } catch (error) {
-      errorHandler({ error, state, setState });
+      setState({ ...state, loading: false });
     }
   };
-  return [state, setState, fetchData];
+  return [state, fetchData];
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Toast, Button } from 'react-bootstrap';
 
-const ErrorToast = ({ fetchData }) => {
+const ErrorToast = ({ fetchData, loading }) => {
   return (
     <Wrapper>
       <Toast>
@@ -14,10 +14,11 @@ const ErrorToast = ({ fetchData }) => {
           <Button
             size="sm"
             onClick={fetchData}
-            variant="outline-primary"
+            variant="outline-info"
             className="refresh-button"
+            disabled={loading}
           >
-            Refresh
+            {loading ? 'Loading...' : 'Refresh'}
           </Button>
         </Toast.Body>
       </Toast>
