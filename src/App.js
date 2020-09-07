@@ -1,19 +1,34 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
-import { logo } from './images';
+import { Row, Container } from 'react-bootstrap';
+import { HomeCard, NoResource, VisionNavBar } from './components';
+import style from 'styled-components';
+import houses from './houses';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './app.css';
 
 function App() {
   return (
-    <div className="App">
-      <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="#home">
-          <img src={logo} alt="logo" class="app-logo" /> HomeVision
-        </Navbar.Brand>
-      </Navbar>
-    </div>
+    <Wrapper>
+      <div className="App">
+        <VisionNavBar />
+        <br />
+        <Container>
+          <Row>
+            {!houses.length ? (
+              <NoResource action={() => {}} />
+            ) : (
+              houses.map((home) => <HomeCard key={home.id} home={home} />)
+            )}
+          </Row>
+        </Container>
+      </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = style.div`
+  .app-logo {
+    height: 50px;
+  }
+`;
 
 export default App;
