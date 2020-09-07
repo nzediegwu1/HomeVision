@@ -2,6 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Toast, Button } from 'react-bootstrap';
 
+/**
+ * @description Renders error message using a toast, upon server error
+ *
+ * @param {Object} { fetchData, loading } 
+ * @returns {React.Component} React Component
+ */
 const ErrorToast = ({ fetchData, loading }) => {
   return (
     <Wrapper>

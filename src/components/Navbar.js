@@ -2,6 +2,11 @@ import React from 'react';
 import { Navbar } from 'react-bootstrap';
 import { logo } from '../images';
 
+/**
+ * @description Renders a sticky bootstrap navbar
+ *
+ * @returns {React.Component} NavBar Component
+ */
 const NavBar = () => {
   return (
     <Navbar

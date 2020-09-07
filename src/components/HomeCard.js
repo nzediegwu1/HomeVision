@@ -3,17 +3,23 @@ import styled from 'styled-components';
 
 import { formatNumber } from '../helpers';
 
+/**
+ * @description Displays information about a home
+ *
+ * @param {Object} { home } 
+ * @returns {React.Component} React Component
+ */
 const HomeCard = ({ home }) => {
   return (
     <Wrapper id={home.id} className="col-sm-6 col-lg-4">
-      <Card className="shopp__card">
-        <div className="flex-center">
+      <Card>
+        <div>
           <img src={home.photoURL} alt={home.homeowner} />
         </div>
-        <div className="details-holder">
+        <div>
           <h4>{`${home.homeowner}'s Home`}</h4>
-          Address: <p>{home.address}</p>
-          <p>Price: ${formatNumber(home.price) || 0}</p>
+          <b>Address:</b> <p>{home.address}</p>
+          <b>Price: </b>${formatNumber(home.price) || 0}
         </div>
       </Card>
     </Wrapper>

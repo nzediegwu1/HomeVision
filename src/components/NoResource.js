@@ -2,6 +2,12 @@ import React from 'react';
 import style from 'styled-components';
 import { Button } from 'react-bootstrap';
 
+/**
+ * @description Displays message when no data was fetched from the server
+ *
+ * @param {Object} { action, loading } Refresh action and loading props
+ * @returns {React.Component} React Component
+ */
 const NoResource = ({ action, loading }) => (
   <Wrapper>
     <div className="no-resource">

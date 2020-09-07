@@ -5,6 +5,11 @@ import style from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useRequest } from './helpers';
 
+/**
+ * @description Landing page of HomeVision app
+ *
+ * @returns {React.Component} React Component
+ */
 function App() {
   const [state, setState] = useState({
     hasMore: true,
