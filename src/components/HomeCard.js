@@ -6,7 +6,7 @@ import { formatNumber } from '../helpers';
 /**
  * @description Displays information about a home
  *
- * @param {Object} { home } 
+ * @param {Object} { home }
  * @returns {React.Component} React Component
  */
 const HomeCard = ({ home }) => {
@@ -18,7 +18,7 @@ const HomeCard = ({ home }) => {
         </div>
         <div>
           <h4>{`${home.homeowner}'s Home`}</h4>
-          <b>Address:</b> <p>{home.address}</p>
+          <b >Address:</b> <p>{home.address}</p>
           <b>Price: </b>${formatNumber(home.price) || 0}
         </div>
       </Card>

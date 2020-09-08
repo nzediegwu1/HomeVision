@@ -11,13 +11,13 @@ import { useRequest } from './helpers';
  * @returns {React.Component} React Component
  */
 function App() {
-  const [state, setState] = useState({ page: 1, errorCount: 0 });
+  const [state, setState] = useState({ page: 1, errors: 0 });
   const [resource, fetchResource] = useRequest();
 
   const fetchData = () => {
     const { page } = state;
-    fetchResource({ page }).then((errorCount) => {
-      setState({ page: page + 1, errorCount });
+    fetchResource({ page }).then((errors) => {
+      setState({ page: page + 1, errors });
     });
   };
 
@@ -47,11 +47,7 @@ function App() {
                     <HomeCard key={home.id + Math.random()} home={home} />
                   ))}
                 </Row>
-                {state.errorCount ? (
-                  <ErrorMessage count={state.errorCount} />
-                ) : (
-                  ''
-                )}
+                {state.errors ? <ErrorMessage count={state.errors} /> : ''}
               </>
             </InfiniteScroll>
           )}
