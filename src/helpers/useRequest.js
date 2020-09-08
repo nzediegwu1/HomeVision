@@ -13,6 +13,7 @@ const useRequest = () => {
     loading: false,
     response: [],
   });
+  let errorCount = 0;
   /**
    * @description Enables you to fetch homes data from the server
    *
@@ -29,9 +30,12 @@ const useRequest = () => {
         response: state.response.concat(response.houses),
         loading: false,
       });
-      return response;
+      let errors = errorCount;
+      errorCount = 0;
+      return errors;
     } catch (error) {
-      setState({ ...state, loading: false });
+      errorCount++;
+      return fetchData({ page });
     }
   };
   return [state, fetchData];

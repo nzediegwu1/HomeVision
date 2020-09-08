@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Container } from 'react-bootstrap';
-import { HomeCard, NoResource, VisionNavBar, ErrorToast } from './components';
+import { HomeCard, NoResource, VisionNavBar, ErrorMessage } from './components';
 import style from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useRequest } from './helpers';
@@ -11,17 +11,13 @@ import { useRequest } from './helpers';
  * @returns {React.Component} React Component
  */
 function App() {
-  const [state, setState] = useState({
-    hasMore: true,
-    page: 1,
-  });
+  const [state, setState] = useState({ page: 1, errorCount: 0 });
   const [resource, fetchResource] = useRequest();
 
   const fetchData = () => {
     const { page } = state;
-    fetchResource({ page }).then((res) => {
-      if (!res) return setState({ ...state, hasMore: false });
-      setState({ page: page + 1, hasMore: true });
+    fetchResource({ page }).then((errorCount) => {
+      setState({ page: page + 1, errorCount });
     });
   };
 
@@ -41,19 +37,22 @@ function App() {
             <InfiniteScroll
               style={{ overflow: 'hidden' }}
               dataLength={response.length}
-              scrollThreshold={0.9}
               next={fetchData}
-              hasMore={state.hasMore}
-              endMessage={
-                <ErrorToast loading={loading} fetchData={fetchData} />
-              }
+              hasMore={true}
               loader={<h4>Loading...</h4>}
             >
-              <Row>
-                {response.map((home) => (
-                  <HomeCard key={home.id + Math.random()} home={home} />
-                ))}
-              </Row>
+              <>
+                <Row>
+                  {response.map((home) => (
+                    <HomeCard key={home.id + Math.random()} home={home} />
+                  ))}
+                </Row>
+                {state.errorCount ? (
+                  <ErrorMessage count={state.errorCount} />
+                ) : (
+                  ''
+                )}
+              </>
             </InfiniteScroll>
           )}
         </Container>
