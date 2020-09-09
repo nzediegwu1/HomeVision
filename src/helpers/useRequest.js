@@ -24,15 +24,14 @@ const useRequest = () => {
     try {
       setState({ ...state, loading: true });
       const link = `${homesUrl}/?page=${page}&per_page=6`;
-      const { data: response } = await axios.get(link);
+      const { data } = await axios.get(link);
 
-      setState({
-        response: state.response.concat(response.houses),
-        loading: false,
-      });
+      const response = state.response.concat(data.houses);
+      setState({ response, loading: false });
+
       let errors = errorCount;
       errorCount = 0;
-      return errors;
+      return { errors, response, loading: state.loading };
     } catch (error) {
       errorCount++;
       return fetchData({ page });
