@@ -15,7 +15,7 @@ const NavBar = ({ children }) => {
     errors: 0,
     response: [],
     loading: false,
-    hasMore: true
+    hasMore: true,
   });
 
   const [resources, fetchResource] = useRequest();
@@ -23,7 +23,13 @@ const NavBar = ({ children }) => {
 
   const fetchData = () => {
     fetchResource({ page }).then((res) => {
-      setState({ ...state, page: page + 1, ...res });
+      setState({
+        ...state,
+        page: page + 1,
+        searchKey: '',
+        hasMore: true,
+        ...res,
+      });
     });
   };
 

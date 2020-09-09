@@ -11,7 +11,7 @@ import { Button } from 'react-bootstrap';
 const NoResource = ({ action, loading }) => (
   <Wrapper>
     <div className="no-resource">
-      <h3>There was an error loading the page</h3>
+      <h3>No homes found</h3>
       <Button
         onClick={action}
         disabled={loading}
