@@ -4,12 +4,6 @@ import { logo } from '../images';
 import { useRequest } from '../helpers';
 
 const NavBar = ({ children }) => {
-  // console.log('response.loaind', state.newResources);
-
-  // create new resources
-  // use main response to search
-  // return reduced response
-
   const [resources, fetchResource] = useRequest();
 
   const [state, setState] = useState({
@@ -20,9 +14,10 @@ const NavBar = ({ children }) => {
   });
   const fetchData = () => {
     const { page } = state;
+    console.log('fetch data called');
     fetchResource({ page }).then((res) => {
       if (!res) return setState({ ...state, hasMore: false });
-      setState({ ...state, page: page + 1, hasMore: true });
+      setState({ ...state, page: page + 1, ...resources, hasMore: true });
     });
   };
 
@@ -30,20 +25,19 @@ const NavBar = ({ children }) => {
 
   const handleChange = ({ target }) => {
     const text = target.value.toLowerCase();
-    // console.log('resource response>>>', resources.response);
-
-    const response = state.response.filter(
+    const { page } = state;
+    const response = resources.response.filter(
       (value) =>
         value.address.toLowerCase().includes(text) ||
         value.homeowner.toLowerCase().includes(text)
     );
-    // console.log('filtered response>>>', response);
-
-    // resources.response = response;
+    const hasMore = !Boolean(text);
     setState({
       ...state,
       searchKey: text.toLowerCase(),
       response,
+      hasMore,
+      page: hasMore ? page + 1 : page,
     });
   };
 
