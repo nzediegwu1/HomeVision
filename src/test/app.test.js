@@ -28,5 +28,5 @@ test('Successfully renders the page', async () => {
   const headerText = 'There was an error loading the page';
 
   expect(screen.getByRole('heading')).toHaveTextContent(headerText);
-  expect(screen.getByRole('button')).toHaveTextContent('Loading...');
+  expect(screen.getByRole('button')).toHaveTextContent('Refresh');
 });
