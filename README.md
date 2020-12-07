@@ -1,5 +1,5 @@
 # HomeVision
-A simple web portal to help you find beautiful house designs for your home
+A simple web portal to help you find beautiful homes to rent
 
 ## Setup
 1. Clone the project using: `git clone https://github.com/nzediegwu1/HomeVision.git`
